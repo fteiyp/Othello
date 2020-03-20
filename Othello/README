@@ -35,12 +35,8 @@ for the minimax algorithm to update and use.
 
 The constants class stores the side length of the square (80 pixels).
 
-EXTRA CREDIT:
+Additional Features:
 The game implements nondeterministic computer play by stores all moves on the board in an array and then shuffling the array.
 The getBestMove method goes through these randomized moves sequentially.
 The game also uses a slider to change the length of time the computer waits before making a move. This sliders value is used
 to set the keyframe of the computer player's timeline.
-
-KNOWN BUGS:
-There are no known bugs in Othello. Computer players of lower intelligence sometimes beat computer players of higher intelligence,
-so im not sure I implemented the deterministic computer player correctly or if this just happens.
