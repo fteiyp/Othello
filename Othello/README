@@ -1,0 +1,46 @@
+README Othello
+
+DESIGN CHOICES:
+This version of Othello was written with the following classes: the App class, the PaneOrganizer class, the Game Class,
+the Move class, the Tile class, the referee class, the player class, the computer player class and the human player class.
+
+The App class uses the start method to instantiate a new PaneOrganizer, then instantiate the scene by 
+passing the borderpane from the PaneOrganizer's borderpane accessor method as an argument. Finally, the 
+stage is told to set the scene and show.
+
+The PaneOrganizer class has the method getBorderPane which returns the borderpane for the App 
+class to display. It adds the gamePane and bottomPane from the game class to the borderPane.
+
+I made the player class an abstract class with the methods startturn, endturn, and move, which all players should have. The
+Human player and the Computer player implement these methods in different ways. They both have a similar startturn method but
+their move methods are very different. Where the human player uses a clickhandler to identify the position of the move, the 
+computer player uses the recursive minimax algorithm to evaluate all the possible moves several steps into the future, depending
+on how high its intelligence is. Moves are evaluated by a boardEvaluation method that assigns specific values to each position.
+
+The referee contains much of the game logic: when a players turn ends, the referee updates the current player and tells it to start
+its turn. It always checks for the endgame condition (neither player has a valid move) before each switch. It also contains the methods
+that search for sandwiches of piece (viable moves) and actually flips those pieces if the move is made.
+
+The game class creates the board and the board pane and also creates the settings pane. The method makeSettings method is very long,
+but I chose to have this method be long instead of making helper methods or a control class because I found both of these to not
+be intuitive: its easier to just see everything in the settingsPane get made in one place. The board weights are contained in the game
+class also. Methods for updating the score display and the player turn display are also in the game class, called on by the referee
+during turn switches.
+
+The tile class is a class for store the square and the ellipse that make up each part of the board. The squares are only changed by the
+human player to mark viable moves. The pieces are accessed a lot for making moves and checking moves.
+
+The Move class is simply a way to store the row and column of different possible moves. It also stores a value associated with that move
+for the minimax algorithm to update and use.
+
+The constants class stores the side length of the square (80 pixels).
+
+EXTRA CREDIT:
+The game implements nondeterministic computer play by stores all moves on the board in an array and then shuffling the array.
+The getBestMove method goes through these randomized moves sequentially.
+The game also uses a slider to change the length of time the computer waits before making a move. This sliders value is used
+to set the keyframe of the computer player's timeline.
+
+KNOWN BUGS:
+There are no known bugs in Othello. Computer players of lower intelligence sometimes beat computer players of higher intelligence,
+so im not sure I implemented the deterministic computer player correctly or if this just happens.
