@@ -16,6 +16,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 /**
  * This is the game class! The game class has method for updating the game
@@ -44,9 +46,9 @@ public class Game {
 
 	/**
 	 * The constructor makes the board, the board weights that are used by the
-	 * computer player, and the settings pane. The settings pane is long but I
-	 * found it more simple to just keep it all in one place instead of
-	 * distributed in another control class.
+	 * computer player, and the settings pane. The settings pane is long but I found
+	 * it more simple to just keep it all in one place instead of distributed in
+	 * another control class.
 	 */
 	public Game(PaneOrganizer paneOrganizer) {
 		_game = this;
@@ -58,8 +60,8 @@ public class Game {
 	}
 
 	/**
-	 * Update score counts all of the white pieces and all of the black pieces
-	 * and then sets the int instance variables equal to them.
+	 * Update score counts all of the white pieces and all of the black pieces and
+	 * then sets the int instance variables equal to them.
 	 */
 	public void updateScore() {
 		int scoreBlack = 0;
@@ -83,8 +85,8 @@ public class Game {
 	}
 
 	/**
-	 * Updates the instruction label after each turn. Instruction label also
-	 * shows directions at start and Game Over at end.
+	 * Updates the instruction label after each turn. Instruction label also shows
+	 * directions at start and Game Over at end.
 	 */
 	public void updateInstructionLabel(Color playerColor) {
 		if (playerColor == Color.BLACK) {
@@ -112,23 +114,20 @@ public class Game {
 	}
 
 	/**
-	 * Called by constructor to lay out the graphical/logical display of tiles.
-	 * 4 pieces set in the center.
+	 * Called by constructor to lay out the graphical/logical display of tiles. 4
+	 * pieces set in the center.
 	 */
 	private void makeBoard() {
 		_boardPane = new Pane();
 		_boardPane.setFocusTraversable(true);
-		_boardPane.setPrefSize(Constants.SQUARE_SIZE * 10,
-				Constants.SQUARE_SIZE * 10);
-		_boardPane.setStyle("-fx-background-color: pink;");
+		_boardPane.setPrefSize(Constants.SQUARE_SIZE * 10, Constants.SQUARE_SIZE * 10);
+		_boardPane.setStyle("-fx-background-color: #1B7553;");
 		_board = new Tile[10][10];
 		for (int row = 1; row < 9; row++) {
 			for (int col = 1; col < 9; col++) {
 				_board[row][col] = new Tile();
-				_board[row][col].setLocation(col * Constants.SQUARE_SIZE, row
-						* Constants.SQUARE_SIZE);
-				_boardPane.getChildren().addAll(_board[row][col].getTile(),
-						_board[row][col].getPiece());
+				_board[row][col].setLocation(col * Constants.SQUARE_SIZE, row * Constants.SQUARE_SIZE);
+				_boardPane.getChildren().addAll(_board[row][col].getTile(), _board[row][col].getPiece());
 			}
 		}
 		_board[4][4].getPiece().setFill(Color.BLACK);
@@ -142,8 +141,8 @@ public class Game {
 	}
 
 	/**
-	 * Very important method! Used by computer player to test out moves. Because
-	 * I made my board an array of Tiles, this made more sense to make than a
+	 * Very important method! Used by computer player to test out moves. Because I
+	 * made my board an array of Tiles, this made more sense to make than a
 	 * traditional copy constructor.
 	 */
 	public Tile[][] copyBoard(Tile[][] oldBoard) {
@@ -151,35 +150,28 @@ public class Game {
 		for (int row = 1; row < 9; row++) {
 			for (int col = 1; col < 9; col++) {
 				newBoard[row][col] = new Tile();
-				newBoard[row][col].getPiece().setFill(
-						oldBoard[row][col].getPiece().getFill());
-				newBoard[row][col].getPiece().setVisible(
-						oldBoard[row][col].getPiece().isVisible());
+				newBoard[row][col].getPiece().setFill(oldBoard[row][col].getPiece().getFill());
+				newBoard[row][col].getPiece().setVisible(oldBoard[row][col].getPiece().isVisible());
 			}
 		}
 		return newBoard;
 	}
 
 	/**
-	 * This just makes the board weights the computer player uses to evaluate
-	 * the board and determine which plays are most beneficial.
+	 * This just makes the board weights the computer player uses to evaluate the
+	 * board and determine which plays are most beneficial.
 	 */
 	private void makeBoardWeights() {
-		_boardWeights = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-				{ 0, 200, -70, 30, 25, 25, 30, -70, 200, 0 },
-				{ 0, -70, -100, -10, -10, -10, -10, -100, -70, 0 },
-				{ 0, 30, 2323, 2, 2, 2, 2, -10, 30, 0 },
-				{ 0, 25, -10, 2, 2, 2, 2, -10, 25, 0 },
-				{ 0, 25, -10, 2, 2, 2, 2, -10, 25, 0 },
-				{ 0, 30, -10, 2, 2, 2, 2, -10, 30, 0 },
-				{ 0, -70, -100, -10, -10, -10, -10, -100, -70, 0 },
-				{ 0, 200, -70, 30, 25, 25, 30, -70, 200, 0 },
-				{ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+		_boardWeights = new int[][] { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }, { 0, 200, -70, 30, 25, 25, 30, -70, 200, 0 },
+				{ 0, -70, -100, -10, -10, -10, -10, -100, -70, 0 }, { 0, 30, 2323, 2, 2, 2, 2, -10, 30, 0 },
+				{ 0, 25, -10, 2, 2, 2, 2, -10, 25, 0 }, { 0, 25, -10, 2, 2, 2, 2, -10, 25, 0 },
+				{ 0, 30, -10, 2, 2, 2, 2, -10, 30, 0 }, { 0, -70, -100, -10, -10, -10, -10, -100, -70, 0 },
+				{ 0, 200, -70, 30, 25, 25, 30, -70, 200, 0 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
 	}
 
 	/**
-	 * These accessors are used by other classes to access the variables created
-	 * in this class. The board weights, the panes, the ref, etc.
+	 * These accessors are used by other classes to access the variables created in
+	 * this class. The board weights, the panes, the ref, etc.
 	 */
 	public int getBoardWeight(int x, int y) {
 		return _boardWeights[x][y];
@@ -227,24 +219,27 @@ public class Game {
 
 	/**
 	 * This method is long but I found having a control class to be way more
-	 * confusing logically. This just creates all of the objects and logic of
-	 * the settingsPane. All the buttons for selecting players and
-	 * starting/resetting the game etc are made here.
+	 * confusing logically. This just creates all of the objects and logic of the
+	 * settingsPane. All the buttons for selecting players and starting/resetting
+	 * the game etc are made here.
 	 */
 	private void makeSettings() {
 		_settingsPane = new VBox(30);
-		_settingsPane.setPrefSize(Constants.SQUARE_SIZE * 4,
-				Constants.SQUARE_SIZE * 10);
-		_settingsPane.setStyle("-fx-background-color: pink;");
+		_settingsPane.setPrefSize(Constants.SQUARE_SIZE * 4, Constants.SQUARE_SIZE * 10);
+		_settingsPane.setStyle("-fx-background-color: #B3A837;");
 		_settingsPane.setAlignment(Pos.CENTER);
 
-		_instructionLabel = new Label(
-				"Select options, then press apply settings.");
+		_instructionLabel = new Label("Select options, then press Begin Game!");
+		_instructionLabel.setWrapText(true);
+		_instructionLabel.setTextAlignment(TextAlignment.CENTER);
+		_instructionLabel.setFont(new Font("Verdana", 20));
 
 		HBox scorePane = new HBox(30);
 		scorePane.setAlignment(Pos.CENTER);
 		_scoreLabelBlack = new Label("Black Player");
+		_scoreLabelBlack.setFont(new Font("Poppins", 16));
 		_scoreLabelWhite = new Label("White Player");
+		_scoreLabelWhite.setFont(new Font("Open Sans", 16));
 		scorePane.getChildren().addAll(_scoreLabelBlack, _scoreLabelWhite);
 
 		HBox playerOptionsPane = new HBox(30);
@@ -256,19 +251,17 @@ public class Game {
 
 		_slider = new Slider(0, 100, 50);
 		_sliderVariable = 10.0;
-		_slider.valueProperty()
-				.addListener(new SliderListener(_sliderVariable));
-		_computerSpeedLabel = new Label("Computer Player Speed: "
-				+ (int) _game.getSliderVariable());
+		_slider.valueProperty().addListener(new SliderListener(_sliderVariable));
+		_computerSpeedLabel = new Label("Computer Player Speed: " + (int) _game.getSliderVariable());
 		_slider.setVisible(false);
 		_computerSpeedLabel.setVisible(false);
 
 		// Creates buttons and checkbox for white player and sets up their logic
 		ToggleGroup optionsBlack = new ToggleGroup();
 		RadioButton button1b = new RadioButton("Human");
-		RadioButton button2b = new RadioButton("Computer 1");
-		RadioButton button3b = new RadioButton("Computer 2");
-		RadioButton button4b = new RadioButton("Computer 3");
+		RadioButton button2b = new RadioButton("Computer Easy");
+		RadioButton button3b = new RadioButton("Computer Soso");
+		RadioButton button4b = new RadioButton("Computer Hard");
 		CheckBox nonDeterministicBlack = new CheckBox("Nondeterministic");
 		nonDeterministicBlack.setVisible(false);
 		button1b.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -315,9 +308,9 @@ public class Game {
 		button1b.setSelected(true);
 		ToggleGroup optionsWhite = new ToggleGroup();
 		RadioButton button1w = new RadioButton("Human");
-		RadioButton button2w = new RadioButton("Computer 1");
-		RadioButton button3w = new RadioButton("Computer 2");
-		RadioButton button4w = new RadioButton("Computer 3");
+		RadioButton button2w = new RadioButton("Computer Easy");
+		RadioButton button3w = new RadioButton("Computer Soso");
+		RadioButton button4w = new RadioButton("Computer Hard");
 		CheckBox nonDeterministicWhite = new CheckBox("Nondeterministic");
 		nonDeterministicWhite.setVisible(false);
 		button1w.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -361,40 +354,31 @@ public class Game {
 		button3w.setToggleGroup(optionsWhite);
 		button4w.setToggleGroup(optionsWhite);
 		button1w.setSelected(true);
-		playerOptionsPaneBlack.getChildren().addAll(button1b, button2b,
-				button3b, button4b, nonDeterministicBlack);
-		playerOptionsPaneWhite.getChildren().addAll(button1w, button2w,
-				button3w, button4w, nonDeterministicWhite);
-		playerOptionsPane.getChildren().addAll(playerOptionsPaneBlack,
-				playerOptionsPaneWhite);
+		playerOptionsPaneBlack.getChildren().addAll(button1b, button2b, button3b, button4b, nonDeterministicBlack);
+		playerOptionsPaneWhite.getChildren().addAll(button1w, button2w, button3w, button4w, nonDeterministicWhite);
+		playerOptionsPane.getChildren().addAll(playerOptionsPaneBlack, playerOptionsPaneWhite);
 
-		_applySettingsButton = new Button("Apply Settings");
+		_applySettingsButton = new Button("Begin Game");
 		_applySettingsButton.setOnMousePressed(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (button1b.isSelected()) {
 					_blackPlayer = new HumanPlayer(_game, Color.BLACK);
 				} else if (button2b.isSelected()) {
-					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 1,
-							nonDeterministicBlack.isSelected());
+					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 1, nonDeterministicBlack.isSelected());
 				} else if (button3b.isSelected()) {
-					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 2,
-							nonDeterministicBlack.isSelected());
+					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 2, nonDeterministicBlack.isSelected());
 				} else if (button4b.isSelected()) {
-					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 3,
-							nonDeterministicBlack.isSelected());
+					_blackPlayer = new ComputerPlayer(_game, Color.BLACK, 3, nonDeterministicBlack.isSelected());
 				}
 				if (button1w.isSelected()) {
 					_whitePlayer = new HumanPlayer(_game, Color.WHITE);
 				} else if (button2w.isSelected()) {
-					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 1,
-							nonDeterministicWhite.isSelected());
+					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 1, nonDeterministicWhite.isSelected());
 				} else if (button3w.isSelected()) {
-					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 2,
-							nonDeterministicWhite.isSelected());
+					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 2, nonDeterministicWhite.isSelected());
 				} else if (button4w.isSelected()) {
-					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 3,
-							nonDeterministicWhite.isSelected());
+					_whitePlayer = new ComputerPlayer(_game, Color.WHITE, 3, nonDeterministicWhite.isSelected());
 				}
 				_referee.newGame();
 				updateInstructionLabel(Color.BLACK);
@@ -422,16 +406,15 @@ public class Game {
 			}
 		});
 
-		_settingsPane.getChildren().addAll(_instructionLabel, scorePane,
-				playerOptionsPane, _slider, _computerSpeedLabel,
-				_applySettingsButton, resetButton, quitButton);
+		_settingsPane.getChildren().addAll(_instructionLabel, scorePane, playerOptionsPane, _slider,
+				_computerSpeedLabel, _applySettingsButton, resetButton, quitButton);
 	}
 
 	/**
 	 * This Slide listener retrieves where the slider is set to and gives the
-	 * corresponding value as an argument to the changed method. This value is
-	 * used to change the time the computer waits before executing its move,
-	 * this is set when the apply settings button is pressed.
+	 * corresponding value as an argument to the changed method. This value is used
+	 * to change the time the computer waits before executing its move, this is set
+	 * when the apply settings button is pressed.
 	 */
 	private class SliderListener implements ChangeListener<Number> {
 
@@ -440,15 +423,13 @@ public class Game {
 		}
 
 		/**
-		 * This method gives the value of of the corresponding position of the
-		 * sliders knob when it is moved around. This updates the keyframe the
-		 * is set when apply settings is pressed.
+		 * This method gives the value of of the corresponding position of the sliders
+		 * knob when it is moved around. This updates the keyframe the is set when apply
+		 * settings is pressed.
 		 */
-		public void changed(ObservableValue<? extends Number> observable,
-				Number oldValue, Number newValue) {
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
 			_sliderVariable = 0.2 * (newValue.doubleValue());
-			_computerSpeedLabel.setText("Computer Player Speed: "
-					+ (int) _game.getSliderVariable());
+			_computerSpeedLabel.setText("Computer Player Speed: " + (int) _game.getSliderVariable());
 		}
 	}
 }
